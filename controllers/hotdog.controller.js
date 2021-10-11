@@ -1,10 +1,10 @@
 const db = require("../db");
 class HotdogController {
   async createHotdog(req, res) {
-    const { name, price, description } = req.body;
+    const { name, img, price, description } = req.body;
     const newHotdog = await db.query(
-      `INSERT INTO hotdog (name, price, description) values ($1, $2, $3) RETURNING *`,
-      [name, price, description]
+      `INSERT INTO hotdog (name, img, price, description) values ($1, $2, $3, $4) RETURNING *`,
+      [name, img, price, description]
     );
     res.json(newHotdog.rows[0]);
   }
@@ -19,10 +19,10 @@ class HotdogController {
   }
 
   async updateHotdog(req, res) {
-    const { id, name, price, description } = req.body;
+    const { id, img, name, price, description } = req.body;
     const hotdog = await db.query(
-      `UPDATE hotdog set name = $1, price = $2, description = $3 where id = $4 RETURNING *`,
-      [name, price, description, id]
+      `UPDATE hotdog set name = $1, img = $2, price= $3, description = $4 where id = $5 RETURNING *`,
+      [name, img, price, description, id]
     );
     res.json(hotdog.rows[0]);
   }
