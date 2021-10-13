@@ -19,7 +19,8 @@ class HotdogController {
   }
 
   async updateHotdog(req, res) {
-    const { id, img, name, price, description } = req.body;
+    const { name, img, price, description } = req.body;
+    const id = req.params.id;
     const hotdog = await db.query(
       `UPDATE hotdog set name = $1, img = $2, price= $3, description = $4 where id = $5 RETURNING *`,
       [name, img, price, description, id]
